@@ -1,0 +1,10 @@
+{
+    "/discord": {
+      "target": "https://khaidevapi.onrender.com",
+      "secure": true,
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/discord": "/discord"
+      }
+    }
+  }
