@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Profile } from '../models/discord-profile.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DiscordApiService {
-  private apiUrl = '/discord/data/profile/';
+  private apiUrl = environment.production
+  ? '/api/proxy?id=' // Vercel serverless function
+  : '/discord/data/profile/'; // Local proxy
 
   constructor() { }
 
@@ -14,6 +17,7 @@ export class DiscordApiService {
       const response = await fetch(this.apiUrl + id, {
         headers: {
           'Content-Type': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest'
         },
       });
 
