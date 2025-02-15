@@ -44,8 +44,8 @@ export class CardProfileComponent implements OnInit {
 
   constructor(private discordApiService: DiscordApiService, private lanyardService: LanyardService) { }
 
-  ngOnInit(): void {
-    this.getDiscordUserData();
+  async ngOnInit(): Promise<void> {
+    await this.getDiscordUserData();
 
     this.getLanyardData();
 
@@ -58,28 +58,25 @@ export class CardProfileComponent implements OnInit {
     }, 60000);
   }
 
-  public getDiscordUserData(): void {
-    this.discordApiService.getDiscordUser(this.userId).subscribe({
-      next: (data: Profile) => {
-        this.userDataStatus = true;
-        this.userData = data;
-
-        // Change all the /n to <br>
-        this.userBioFormatted = this.userData.user_profile?.bio?.replace(/\n/g, '<br>');
-
-        this.themesColor = this.userData.user_profile?.theme_colors?.map(e => `#${e.toString(16).padStart(6, '0')}`) || environment.default.theme_colors;
-
-        this.avatarDecorationAsset = this.userData.user?.avatar_decoration_data?.asset || environment.default.avatar_decoration;
-
-        this.banner = `url(${this.userData.user?.banner ? `https://cdn.discordapp.com/banners/${this.userId}/${this.userData.user.banner}?size=2048` : environment.default.banner})`;
-      },
-      error: (error) => {
-        this.userDataStatus = false;
-        console.log(error);
-      }
-    }).add(() => {
+  public async getDiscordUserData(): Promise<void> {
+    try {
+      const data = await this.discordApiService.getDiscordUser(this.userId);
+      
+      this.userDataStatus = true;
+      this.userData = data;
+  
+      // Existing data processing logic
+      this.userBioFormatted = this.userData.user_profile?.bio?.replace(/\n/g, '<br>');
+      this.themesColor = this.userData.user_profile?.theme_colors?.map(e => `#${e.toString(16).padStart(6, '0')}`) || environment.default.theme_colors;
+      this.avatarDecorationAsset = this.userData.user?.avatar_decoration_data?.asset || environment.default.avatar_decoration;
+      this.banner = `url(${this.userData.user?.banner ? `https://cdn.discordapp.com/banners/${this.userId}/${this.userData.user.banner}?size=2048` : environment.default.banner})`;
+  
+    } catch (error: any) {  // Fix TS7006 by adding type annotation
+      this.userDataStatus = false;
+      console.log(error);
+    } finally {
       window.loadAtropos();
-    });
+    }
   }
 
   public getLanyardData(): void {

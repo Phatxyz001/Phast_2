@@ -1,18 +1,31 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { Profile } from '../models/discord-profile.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DiscordApiService {
+  private apiUrl = '/discord/data/profile/';
 
-  urlDiscordApi: string = 'https://khaidevapi.onrender.com/discord/data/profile/'
+  constructor() { }
 
-constructor(private http: HttpClient) { }
+  async getDiscordUser(id: string): Promise<Profile> {
+    try {
+      const response = await fetch(this.apiUrl + id, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-  getDiscordUser(id: string): Observable<Profile> {
-    return this.http.get<Profile>(this.urlDiscordApi + id);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data: Profile = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Fetch error:', error);
+      throw error;
+    }
   }
 }
