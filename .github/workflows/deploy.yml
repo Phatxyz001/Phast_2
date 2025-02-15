@@ -16,7 +16,7 @@ jobs:
           node-version: "20"
       # Pick your own package manager and build script
       - run: npm install
-      - run: npm run build && touch .dist/.nojekyll && echo 'urielxx.xyz' > .output/public/CNAME,
+      - run: npm run build && touch dist/.nojekyll && echo 'urielxx.xyz' > dist/CNAME,
       - run: npx angular-cli-ghpages --dir=dist/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
