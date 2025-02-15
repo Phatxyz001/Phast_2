@@ -92,19 +92,11 @@
 }
 
 #video_cover {
-  position: absolute;
-  overflow: hidden;
-  z-index: -100;
-  background-size: cover;
-  background-position: center;
-}
-
-#image_cover {
   height: 100%;
   width: 100%;
   position: absolute;
   overflow: hidden;
-  z-index: -50;
+  z-index: -100;
   background: url('https://img.upanh.tv/2024/12/04/431117986dcdb6729a80bba3367fb61d.gif') repeat;
   background-size: cover;
   background-position: center;
