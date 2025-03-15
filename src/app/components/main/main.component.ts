@@ -22,33 +22,31 @@ export class MainComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.bgVideo.nativeElement.muted = this.isMuted;
-  }
+    const videoElement = this.bgVideo.nativeElement;
 
-  public changeVolume(volume: any) {
-    const volumeInput = volume.target.value;
-    this.volume = volumeInput;
+    this.isMuted = false; 
+    this.volume = 100; 
+    videoElement.volume = 1;
+    this.volumeInput.nativeElement.value = 100;
+    localStorage.setItem('volume', '100');
 
-    this.bgVideo.nativeElement.volume = volumeInput / 100;
-
-    localStorage.setItem('volume', volumeInput);
+    videoElement.play().then(() => {
+      videoElement.muted = false;
+    }).catch(() => {
+      const enableAudio = () => {
+        videoElement.muted = false;
+        videoElement.play();
+        document.removeEventListener('click', enableAudio);
+      };
+      document.addEventListener('click', enableAudio);
+    });
 
     if (this.iconVolume) {
-      if (volumeInput == 0) {
-        this.renderer.removeClass(this.iconVolume.nativeElement, 'bxs-volume-full');
-        this.renderer.addClass(this.iconVolume.nativeElement, 'bxs-volume-mute');
-        this.renderer.addClass(this.iconVolume.nativeElement, 'bx-tada');
-        this.renderer.addClass(this.iconVolume.nativeElement, 'bx-flip-vertical');
-      } else {
-        this.renderer.removeClass(this.iconVolume.nativeElement, 'bxs-volume-mute');
-        this.renderer.removeClass(this.iconVolume.nativeElement, 'bx-tada');
-        this.renderer.removeClass(this.iconVolume.nativeElement, 'bx-flip-vertical');
-        this.renderer.addClass(this.iconVolume.nativeElement, 'bxs-volume-full');
-      }
+      this.renderer.removeClass(this.iconVolume.nativeElement, 'bxs-volume-mute');
+      this.renderer.removeClass(this.iconVolume.nativeElement, 'bx-tada');
+      this.renderer.removeClass(this.iconVolume.nativeElement, 'bx-flip-vertical');
+      this.renderer.addClass(this.iconVolume.nativeElement, 'bxs-volume-full');
     }
-
-    this.isMuted = volumeInput == 0 ? true : false;
-    this.bgVideo.nativeElement.muted = this.isMuted;
   }
 
   public toggleMute(): void {
