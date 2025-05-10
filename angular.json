@@ -31,6 +31,7 @@
             "scripts": [
               "node_modules/marked/marked.min.js",
               "node_modules/atropos/atropos.min.js",
+              "node_modules/emoji-toolkit/lib/js/joypixels.min.js",
               "src/assets/scripts/atropos.js"
             ]
           },
@@ -105,6 +106,7 @@
             "scripts": [
               "node_modules/marked/marked.min.js",
               "node_modules/atropos/atropos.min.js",
+              "node_modules/emoji-toolkit/lib/js/joypixels.min.js",
               "src/assets/scripts/atropos.js"
             ]
           }
