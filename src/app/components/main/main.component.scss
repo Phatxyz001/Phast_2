@@ -81,11 +81,9 @@
   overflow-y: auto;
   display: flex;
   justify-content: center;
-  align-content: center;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
   gap: 2rem;
-  overflow: hidden;
 
   @media screen and (max-height: 816px) {
     justify-content: flex-start;
@@ -93,13 +91,20 @@
   }
 }
 
-
 #video_cover {
+  position: absolute;
+  overflow: hidden;
+  z-index: -100;
+  background-size: cover;
+  background-position: center;
+}
+
+#image_cover {
   height: 100%;
   width: 100%;
   position: absolute;
   overflow: hidden;
-  z-index: -100;
+  z-index: -50;
   background: url('https://img.upanh.tv/2024/12/04/431117986dcdb6729a80bba3367fb61d.gif') repeat;
   background-size: cover;
   background-position: center;
