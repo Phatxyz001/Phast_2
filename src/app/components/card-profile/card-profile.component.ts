@@ -44,8 +44,8 @@ export class CardProfileComponent implements OnInit {
 
   constructor(private discordApiService: DiscordApiService, private lanyardService: LanyardService) { }
 
-  ngOnInit(): void {
-    this.getDiscordUserData();
+  async ngOnInit(): Promise<void> {
+    await this.getDiscordUserData();
 
     this.getLanyardData();
 
@@ -58,28 +58,33 @@ export class CardProfileComponent implements OnInit {
     }, 60000);
   }
 
-  public getDiscordUserData(): void {
-    this.discordApiService.getDiscordUser(this.userId).subscribe({
-      next: (data: Profile) => {
-        this.userDataStatus = true;
-        this.userData = data;
+  public async getDiscordUserData(): Promise<void> {
+    try {
+      const data = await this.discordApiService.getDiscordUser(this.userId);
+      
+      this.userDataStatus = true;
+      this.userData = data;
+  
+      // Existing data processing logic
+      this.userBioFormatted = this.userData.user_profile?.bio?.replace(/^(.+)$/gm, (match) => {
+        return `<div class='flex gap-[2px]'>${match.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" class="text-blue-500">$1</a>')}</div>`;
+      })
+      .replace(/<:(\w+):(\d+)>/g, (match, emojiName, emojiId) => {
+        return `<img src="https://cdn.discordapp.com/emojis/${emojiId}.png" alt="${emojiName}" width="24" height="24" />`;
+      });
 
-        // Change all the /n to <br>
-        this.userBioFormatted = this.userData.user_profile?.bio?.replace(/\n/g, '<br>');
 
-        this.themesColor = this.userData.user_profile?.theme_colors?.map(e => `#${e.toString(16).padStart(6, '0')}`) || environment.default.theme_colors;
 
-        this.avatarDecorationAsset = this.userData.user?.avatar_decoration_data?.asset || environment.default.avatar_decoration;
-
-        this.banner = `url(${this.userData.user?.banner ? `https://cdn.discordapp.com/banners/${this.userId}/${this.userData.user.banner}?size=2048` : environment.default.banner})`;
-      },
-      error: (error) => {
-        this.userDataStatus = false;
-        console.log(error);
-      }
-    }).add(() => {
+      this.themesColor = this.userData.user_profile?.theme_colors?.map(e => `#${e.toString(16).padStart(6, '0')}`) || environment.default.theme_colors;
+      this.avatarDecorationAsset = this.userData.user?.avatar_decoration_data?.asset || environment.default.avatar_decoration;
+      this.banner = `url(${this.userData.user?.banner ? `https://cdn.discordapp.com/banners/${this.userId}/${this.userData.user.banner}?size=2048` : environment.default.banner})`;
+  
+    } catch (error: any) {  // Fix TS7006 by adding type annotation
+      this.userDataStatus = false;
+      console.log(error);
+    } finally {
       window.loadAtropos();
-    });
+    }
   }
 
   public getLanyardData(): void {
@@ -124,8 +129,8 @@ export class CardProfileComponent implements OnInit {
         }
 
         // Format the timestamps of the activities
-        this.lanyardActivities.forEach((activity) => {
-          if (activity.timestamps) {
+        this.lanyardActivities.forEach((activity, i) => {
+          if (activity.timestamps && i == 0) {
             const { start } = activity.timestamps;
             const startTime = new Date(start);
 
