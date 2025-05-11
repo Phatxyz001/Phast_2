@@ -81,18 +81,15 @@
   overflow-y: auto;
   display: flex;
   justify-content: center;
-  align-content: center;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
   gap: 2rem;
-  overflow: hidden;
 
   @media screen and (max-height: 816px) {
     justify-content: flex-start;
     padding: 4rem 0rem 4rem 0rem;
   }
 }
-
 
 #video_cover {
   height: 100%;
