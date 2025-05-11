@@ -1,5 +1,5 @@
 {
-  "name": "DiscordCard",
+  "name": "Phast_2",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -18,11 +18,10 @@
     "@angular/platform-browser": "^16.0.0",
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
-    "DiscordCard": "file:",
     "atropos": "^2.0.2",
-    "emoji-toolkit": "^9.0.1",
     "marked": "^4.3.0",
     "ngx-markdown": "^16.0.0",
+    "Phast_2": "file:",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
