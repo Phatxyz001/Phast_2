@@ -135,3 +135,7 @@ dist
 /node_modules
 /src/app/generated
 .angular
+.vercel
+
+#other
+*.mp4
