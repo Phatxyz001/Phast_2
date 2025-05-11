@@ -1,4 +1,6 @@
 export const environment = {
+  production: false,
+  apiBaseUrl: '/discord',
   "discordId": "873179791199723541",
   "default": {
     "banner": "https://cdn.discordapp.com/assets/profile_effects/effects/2024-09-09/sun-and-moon/idle.png",
