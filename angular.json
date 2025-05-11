@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "DiscordCard": {
+    "Phast_2": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist",
+            "baseHref": "/Phast_2/",
+            "outputPath": "dist/Phast_2",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -31,7 +32,6 @@
             "scripts": [
               "node_modules/marked/marked.min.js",
               "node_modules/atropos/atropos.min.js",
-              "node_modules/emoji-toolkit/lib/js/joypixels.min.js",
               "src/assets/scripts/atropos.js"
             ]
           },
@@ -70,17 +70,12 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "proxyConfig": "proxy.conf.json"
-          },
           "configurations": {
             "production": {
-              "browserTarget": "DiscordCard:build:production",
-              "proxyConfig": "proxy.conf.json"
+              "browserTarget": "Phast_2:build:production"
             },
             "development": {
-              "browserTarget": "DiscordCard:build:development",
-              "proxyConfig": "proxy.conf.json"
+              "browserTarget": "Phast_2:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -88,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "DiscordCard:build"
+            "browserTarget": "Phast_2:build"
           }
         },
         "test": {
@@ -106,7 +101,6 @@
             "scripts": [
               "node_modules/marked/marked.min.js",
               "node_modules/atropos/atropos.min.js",
-              "node_modules/emoji-toolkit/lib/js/joypixels.min.js",
               "src/assets/scripts/atropos.js"
             ]
           }
