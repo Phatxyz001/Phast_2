@@ -1,6 +1,4 @@
 export const environment = {
-  production: true,
-  apiBaseUrl: 'https://khaidevapi.onrender.com/discord',
   "discordId": "873179791199723541",
   "default": {
     "banner": "https://cdn.discordapp.com/assets/profile_effects/effects/2024-09-09/sun-and-moon/idle.png",
