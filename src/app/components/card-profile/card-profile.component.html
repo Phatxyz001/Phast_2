@@ -1,4 +1,4 @@
-<div class="atropos atropos-card">
+ <div class="atropos atropos-card">
   <div class="atropos-scale">
     <div class="atropos-rotate">
       <div class="atropos-inner">
@@ -78,12 +78,11 @@
                 <hr />
                 <div class="basic-infos" *ngIf="userData?.user_profile?.bio!.length > 0">
                   <div class="category-title">About Me</div>
-                  <markdown class="markdown" [data]="userBioFormatted" [inline]="false">
-                  </markdown>
+                  <markdown class="markdown" [data]="userBioFormatted" [inline]="false"></markdown>
                 </div>
                 <div class="activities" *ngIf="lanyardActivities.length > 0">
                   <div class="category-title">{{lanyardActivities.length > 1 ? 'Activities' : 'Activity'}}</div>
-                  <div *ngFor="let activity of [lanyardActivities[0]]">
+                  <div *ngFor="let activity of lanyardActivities">
                     <div class="flex items-center gap-4 my-4">
                       <div class="activity-icon">
                         <div *ngIf="activity.name !== 'Spotify'">

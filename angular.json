@@ -31,7 +31,6 @@
             "scripts": [
               "node_modules/marked/marked.min.js",
               "node_modules/atropos/atropos.min.js",
-              "node_modules/emoji-toolkit/lib/js/joypixels.min.js",
               "src/assets/scripts/atropos.js"
             ]
           },
@@ -70,17 +69,12 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "proxyConfig": "proxy.conf.json"
-          },
           "configurations": {
             "production": {
-              "browserTarget": "DiscordCard:build:production",
-              "proxyConfig": "proxy.conf.json"
+              "browserTarget": "DiscordCard:build:production"
             },
             "development": {
-              "browserTarget": "DiscordCard:build:development",
-              "proxyConfig": "proxy.conf.json"
+              "browserTarget": "DiscordCard:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -106,7 +100,6 @@
             "scripts": [
               "node_modules/marked/marked.min.js",
               "node_modules/atropos/atropos.min.js",
-              "node_modules/emoji-toolkit/lib/js/joypixels.min.js",
               "src/assets/scripts/atropos.js"
             ]
           }
